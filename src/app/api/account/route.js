@@ -8,7 +8,7 @@ export async function POST(request) {
     const data = await request.json();
     const { bankTitle, accountNo, acountTitle } = data;
 
-    const newAccount = await prisma.account.create({
+    const newAccount = await prisma.Account.create({
       data: {
         bankTitle: bankTitle,
         accountNo: accountNo,
@@ -33,7 +33,7 @@ export async function POST(request) {
 
 export async function GET() {
   try {
-    const accounts = await prisma.account.findMany();
+    const accounts = await prisma.Account.findMany();
     return NextResponse.json(accounts);
   } catch (error) {
     console.log("Error fetching Accounts:", error);

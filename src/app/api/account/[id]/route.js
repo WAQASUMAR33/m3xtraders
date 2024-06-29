@@ -6,7 +6,7 @@ import prisma from '../../../../lib/prisma';
 export async function GET(request, { params }) {
   const { id } = params;
   try {
-    const account = await prisma.account.findUnique({
+    const account = await prisma.Account.findUnique({
       where: {
         id: parseInt(id),
       },
@@ -27,7 +27,7 @@ export async function PUT(request, { params }) {
     const { bankTitle, accountNo, acountTitle } = data;
     const id = parseInt(params.id);
 
-    const updatedAccount = await prisma.account.update({
+    const updatedAccount = await prisma.Account.update({
       where: {
         id: id,
       },
@@ -51,7 +51,7 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const id = parseInt(params.id);
-    const deletedAccount = await prisma.account.delete({
+    const deletedAccount = await prisma.Account.delete({
       where: {
         id: id,
       },
