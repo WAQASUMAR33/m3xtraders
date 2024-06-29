@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id             Int       @id @default(autoincrement())
+  name           String?
+  email          String    @unique
+  password       String
+  accountNo      String?
+  bankname       String?
+  accounttitle   String?
+  city           String?
+  image          String?
+  phoneno        String?
+  balance        Float     @default(0)
+  packageId      Int? 
+  status         Int       @default(0)
+  sponsor     User?           @relation("UserSponsors", fields: [sponsorId], references: [id])
+  sponsorId   Int?
+  referrals   User[]          @relation("UserSponsors")
+  benefits    ReferralBenefit[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model ReferralBenefit {
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  user     User     @relation(fields: [userId], references: [id])
+  amount   Float
+  earnedAt DateTime @default(now())
+}
+
+
+
+
+model Deposit {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  packageId  Int
+  amount     Float
+  trxId      String   @db.VarChar(255)
+  status     String   @db.VarChar(255)
+  createdAt  DateTime 
+  updatedAt  DateTime 
+}
+
+
+model Package {
+  id         Int      @id @default(autoincrement())
+  title      String   @db.VarChar(255)
+  amount     Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Account {
+  id          Int      @id @default(autoincrement())
+  bankTitle   String   @db.VarChar(255)
+  accountNo   String   @db.VarChar(255)
+  accountTitle String  @db.VarChar(255)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Setting {
+  id         Int      @id @default(autoincrement())
+  per_Level1 Float
+  per_Level2 Float
+  per_Level3 Float
+  per_Profit Float
+  others     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Withdrawal {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  amount       Float
+  prev_balance Float
+  post_balance Float
+  trxId        String   @db.VarChar(255)
+  status       String   @db.VarChar(255)
+  createdAt    DateTime
+  updatedAt    DateTime
+}
