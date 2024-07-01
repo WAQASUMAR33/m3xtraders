@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
-
 
 export async function POST(request) {
   try {
@@ -13,11 +12,12 @@ export async function POST(request) {
         per_Level2: parseFloat(per_Level2),
         per_Level3: parseFloat(per_Level3),
         per_Profit: parseFloat(per_Profit),
-        others: others,
+        others,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
     });
+
     return NextResponse.json(newSetting);
   } catch (error) {
     console.error('Error creating Setting:', error);
@@ -37,10 +37,10 @@ export async function GET() {
     const settings = await prisma.setting.findMany();
     return NextResponse.json(settings);
   } catch (error) {
-    console.log("Error fetching Settings:", error);
+    console.error('Error fetching Settings:', error);
     return NextResponse.json(
       { message: 'Failed to fetch Settings', error: error.message },
-      { status: 500 }
-    );
-  }
+      { status: 500 }
+    );
+  }
 }

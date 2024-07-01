@@ -45,7 +45,7 @@ export async function POST(request) {
 
 
         
-        return NextResponse.json();
+        return NextResponse.json(user_);
       }
     }
   } catch (error) {

@@ -1,25 +1,40 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
 
 export async function POST(request) {
   try {
     const data = await request.json();
-    const { title, amount } = data;
+    const { id, title, amount } = data;
 
-    const newPackage = await prisma.package.create({
-      data: {
-        title: title,
-        amount: parseFloat(amount),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    });
+    let newPackage;
+    if (id) {
+      // Update existing package
+      newPackage = await prisma.package.update({
+        where: { id },
+        data: {
+          title,
+          amount: parseFloat(amount),
+          updatedAt: new Date(),
+        },
+      });
+    } else {
+      // Create new package
+      newPackage = await prisma.package.create({
+        data: {
+          title,
+          amount: parseFloat(amount),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      });
+    }
+
     return NextResponse.json(newPackage);
   } catch (error) {
-    console.error('Error creating Package:', error);
+    console.error('Error creating or updating Package:', error);
     return NextResponse.json(
       {
-        message: 'Failed to create Package',
+        message: 'Failed to create or update Package',
         status: false,
         error: error.message,
       },
@@ -36,7 +51,27 @@ export async function GET() {
     console.log("Error fetching Packages:", error);
     return NextResponse.json(
       { message: 'Failed to fetch Packages', error: error.message },
-      { status: 500 }
-    );
-  }
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const { id } = await request.json();
+    await prisma.package.delete({
+      where: { id },
+    });
+    return NextResponse.json({ message: 'Package deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting Package:', error);
+    return NextResponse.json(
+      {
+        message: 'Failed to delete Package',
+        status: false,
+        error: error.message,
+      },
+      { status: 500 }
+    );
+  }
 }
