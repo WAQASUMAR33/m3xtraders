@@ -6,13 +6,13 @@ import prisma from '../../../lib/prisma';
 export async function POST(request) {
   try {
     const data = await request.json();
-    const { bankTitle, accountNo, acountTitle } = data;
+    const { bankTitle, accountNo, accountTitle } = data;
 
     const newAccount = await prisma.Account.create({
       data: {
         bankTitle: bankTitle,
         accountNo: accountNo,
-        acountTitle: acountTitle,
+        accountTitle: accountTitle,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

@@ -24,7 +24,7 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const data = await request.json();
-    const { bankTitle, accountNo, acountTitle } = data;
+    const { bankTitle, accountNo, accountTitle } = data;
     const id = parseInt(params.id);
 
     const updatedAccount = await prisma.Account.update({
@@ -34,7 +34,7 @@ export async function PUT(request, { params }) {
       data: {
         bankTitle: bankTitle,
         accountNo: accountNo,
-        acountTitle: acountTitle,
+        acountTitle: accountTitle,
         updatedAt: new Date(),
       },
     });
