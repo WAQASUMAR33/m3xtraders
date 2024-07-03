@@ -9,11 +9,10 @@ import path from "path";
 export async function POST(request) {
   try {
     const data = await request.json();
-    const { userId, packageId, amount, trxId, status } = data;
+    const { userId, packageId, amount, trxId, status, imageurl } = data;
 
 
-
-    const buffer = Buffer.from(imgurl2, "base64");
+    const buffer = Buffer.from(imageurl, "base64");
     // Generate a unique file name
     const fileName = `image_${Date.now()}.jpg`;
     // Specify the path where the file will be saved
