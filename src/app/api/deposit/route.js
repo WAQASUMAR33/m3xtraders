@@ -1,10 +1,27 @@
 import { NextResponse } from "next/server";
 import prisma from '../../../lib/prisma';
 
+
+import fs from "fs";
+import path from "path";
+
+
 export async function POST(request) {
   try {
     const data = await request.json();
     const { userId, packageId, amount, trxId, status } = data;
+
+
+
+    const buffer = Buffer.from(imgurl2, "base64");
+    // Generate a unique file name
+    const fileName = `image_${Date.now()}.jpg`;
+    // Specify the path where the file will be saved
+    const filePath = path.join(process.cwd(), "public", "uploads", fileName);
+    // Write buffer to file
+    fs.writeFileSync(filePath, buffer);
+
+
 
     const newDeposit = await prisma.deposit.create({
       data: {
@@ -13,6 +30,7 @@ export async function POST(request) {
         amount: parseFloat(amount),
         trxId: trxId,
         status: status,
+        imageurl: fileName,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

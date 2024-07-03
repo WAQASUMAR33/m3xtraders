@@ -54,6 +54,7 @@ model Deposit {
   amount     Float
   trxId      String   @db.VarChar(255)
   status     String   @db.VarChar(255)
+  imageurl   String?  @db.Text
   createdAt  DateTime 
   updatedAt  DateTime 
 }
