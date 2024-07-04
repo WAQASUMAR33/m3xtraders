@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
-import { uploadToGitHub } from '../../../lib/githubUploader';
-import fs from 'fs';
-import path from 'path';
+// import { uploadToGitHub } from '../../../lib/githubUploader';
+// import fs from 'fs';
+// import path from 'path';
 
 
 
@@ -17,19 +17,19 @@ export async function POST(request) {
     const data = await request.json();
     const { userId, packageId, amount, trxId, status, imageurl } = data;
 
-    if (!imageurl) {
-      return NextResponse.json({ message: 'No image provided', status: false }, { status: 400 });
-    }
+    // if (!imageurl) {
+    //   return NextResponse.json({ message: 'No image provided', status: false }, { status: 400 });
+    // }
 
-    // Decode base64 string and save the file
-    const base64Data = imageurl.replace(/^data:image\/\w+;base64,/, '');
-    const buffer = Buffer.from(base64Data, 'base64');
+    // // Decode base64 string and save the file
+    // const base64Data = imageurl.replace(/^data:image\/\w+;base64,/, '');
+    // const buffer = Buffer.from(base64Data, 'base64');
 
-    // Generate a unique filename
-    const filename = `image_${Date.now()}.jpg`;
+    // // Generate a unique filename
+    // const filename = `image_${Date.now()}.jpg`;
 
-    // Upload the file to GitHub
-    const fileUrl = await uploadToGitHub(buffer, filename);
+    // // Upload the file to GitHub
+    // const fileUrl = await uploadToGitHub(buffer, filename);
 
     const newDeposit = await prisma.deposit.create({
       data: {
@@ -38,7 +38,7 @@ export async function POST(request) {
         amount: parseFloat(amount),
         trxId: trxId,
         status: status,
-        imageurl: fileUrl, // Save the GitHub file URL in the database
+        imageurl: "not Uploaded", // Save the GitHub file URL in the database
         createdAt: new Date(),
         updatedAt: new Date(),
       },
