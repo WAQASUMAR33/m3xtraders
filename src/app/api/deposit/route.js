@@ -4,11 +4,13 @@ import { uploadToGitHub } from '../../../lib/githubUploader';
 import fs from 'fs';
 import path from 'path';
 
-export const config = {
+
+
+export const config = () => ({
   api: {
-    bodyParser: true, // Enable body parsing
+    bodyParser: false,
   },
-};
+});
 
 export async function POST(request) {
   try {
