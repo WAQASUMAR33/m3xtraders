@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 
 export async function POST(request) {
   try {
+
+  
     const data = await request.json();
     const { name, email, password, accountNo, bankname, accounttitle, city, image, phoneno, balance, status, sponsorId } = data;
 
@@ -39,15 +41,7 @@ export async function POST(request) {
       },
     });
 
-    if (sponsorId) {
-      await prisma.ReferralBenefit.create({
-        data: {
-          userId: parseInt(sponsorId),
-          amount: 120,
-        },
-      });
-    }
-
+   
     return NextResponse.json(newUser);
   } catch (error) {
     return NextResponse.json(

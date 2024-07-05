@@ -5,12 +5,8 @@ import prisma from '../../../../lib/prisma';
 export async function GET(request, { params }) {
   const { id } = params;
   try {
-    const deposit = await prisma.deposit.findUnique({
-      where: {
-        id: parseInt(id),
-      },
-    });
-    return NextResponse.json(deposit);
+    const deposits = await prisma.$queryRaw`SELECT * FROM Deposit WHERE userId = ${id}`;
+    return NextResponse.json(deposits);
   } catch (error) {
     console.log("Error fetching Deposit:", error);
     return NextResponse.json(

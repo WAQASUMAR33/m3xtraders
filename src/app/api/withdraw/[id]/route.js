@@ -5,12 +5,8 @@ import prisma from '../../../../lib/prisma';
 export async function GET(request, { params }) {
   const { id } = params;
   try {
-    const withdrawal = await prisma.withdrawal.findUnique({
-      where: {
-        id: parseInt(id),
-      },
-    });
-    return NextResponse.json(withdrawal);
+    const withdrawals = await prisma.$queryRaw`SELECT * FROM Withdrawal WHERE id = ${id}`;
+    return NextResponse.json(withdrawals);
   } catch (error) {
     console.log("Error fetching Withdrawal:", error);
     return NextResponse.json(

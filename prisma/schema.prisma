@@ -40,6 +40,8 @@ model ReferralBenefit {
   id       Int      @id @default(autoincrement())
   userId   Int
   user     User     @relation(fields: [userId], references: [id])
+  level    String?
+  touser   String
   amount   Float
   earnedAt DateTime @default(now())
 }
