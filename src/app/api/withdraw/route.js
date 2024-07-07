@@ -6,19 +6,37 @@ export async function POST(request) {
     const data = await request.json();
     const { userId, amount, prev_balance, post_balance, trxId, status } = data;
 
-    const newWithdrawal = await prisma.withdrawal.create({
-      data: {
-        userId: parseInt(userId),
-        amount: parseFloat(amount),
-        prev_balance: parseFloat(prev_balance),
-        post_balance: parseFloat(post_balance),
-        trxId: trxId,
-        status: status,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    });
-    return NextResponse.json(newWithdrawal);
+
+    const result3 = await prisma.$queryRaw`SELECT * FROM Withdrawal WHERE userId = ${userId} and status = 0`;
+
+     if(result3.length == 0){
+
+
+      const newWithdrawal = await prisma.withdrawal.create({
+        data: {
+          userId: userId,
+          amount: parseFloat(amount) ,
+          prev_balance: 0,
+          post_balance: 0,
+          trxId: "no",
+          status: "0",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      });
+      return NextResponse.json({
+        status : 200,
+        message : "Request has been submitted"
+      });
+    }else{
+      return NextResponse.json({
+        status : 200,
+        message : "Already Request has Pending"
+      });
+    }
+   
+
+   
   } catch (error) {
     console.error('Error creating Withdrawal:', error);
     return NextResponse.json(

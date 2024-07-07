@@ -35,7 +35,7 @@ export async function POST(request) {
         phoneno,
         balance,
         status,
-        sponsorId: sponsorId ? parseInt(sponsorId) : null,
+        sponsorId: sponsorId ? parseInt(sponsorId) : 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

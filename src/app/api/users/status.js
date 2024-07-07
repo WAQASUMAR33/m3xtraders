@@ -12,7 +12,6 @@ export async function PUT(request) {
         { status: 400 }
       );
     }
-
     let status;
     if (action === 'activate') {
       status = 1;

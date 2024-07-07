@@ -110,3 +110,12 @@ model AdminUsers {
   createdAt DateTime
   updatedAt DateTime
 }
+
+model Rewards {
+  id  Int   @id @default(autoincrement())
+  userId Int
+  pkgid Int 
+  profit Float
+  createdAt DateTime
+  updatedAt DateTime
+}
