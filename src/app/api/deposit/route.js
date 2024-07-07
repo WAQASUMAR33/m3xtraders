@@ -41,6 +41,21 @@ export async function POST(request) {
           updatedAt: new Date(),
         },
       });
+
+
+
+      const updatepackage = await prisma.User.update({
+        where: {
+          id: parseInt(userId) ,
+        },
+        data: {
+          packageId: parseInt(packageId),
+          updatedAt: new Date(),
+        },
+      });
+
+
+      
       return NextResponse.json({
         status: 200,
         message: "No Referal Found Package is activated.",
@@ -174,6 +189,7 @@ export async function POST(request) {
         });
     
     
+  
     
         const updatepackage = await prisma.User.update({
           where: {
