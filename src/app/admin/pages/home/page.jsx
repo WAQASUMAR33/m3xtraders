@@ -1,9 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import HeaderCard from "./HeaderCard";
-import Graph from "./Graph";
-import UserTable from "./UserTable";
-import InvoiceList from "./InvoiceList";
 import { FaUsers } from "react-icons/fa";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { FaArrowCircleDown } from "react-icons/fa";

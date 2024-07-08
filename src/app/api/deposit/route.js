@@ -1,14 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
-// import { uploadToGitHub } from '../../../lib/githubUploader';
-// import fs from 'fs';
-// import path from 'path';
 
-export const config = () => ({
-  api: {
-    bodyParser: false,
-  },
-});
 
 export async function POST(request) {
 
