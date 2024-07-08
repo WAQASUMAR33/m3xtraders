@@ -1,9 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react';
 import FilterableTable from "./FilterableTable";
-
+import useAuth from "../useAuth";
 export default function Home() {
   const [data, setData] = useState([]);
+
+  useAuth();
+
 
   useEffect(() => {
     const fetchData = async () => {

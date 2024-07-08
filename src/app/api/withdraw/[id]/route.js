@@ -18,25 +18,47 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const data = await request.json();
-    const { userId, amount, prev_balance, post_balance, trxId, status } = data;
+   
     const id = parseInt(params.id);
 
-    const updatedWithdrawal = await prisma.withdrawal.update({
+    const deposits = await prisma.$queryRaw`SELECT Withdrawal.*, User.balance from Withdrawal inner join User on User.id = Withdrawal.userId  where Withdrawal.id = ${id}`;
+ 
+    let userId = deposits[0].userId;
+    let balance = deposits[0].balance;
+    let amount = deposits[0].amount;
+    let newBalace = balance - amount;
+
+
+
+
+    const updatedWithdrawal = await prisma.Withdrawal.update({
       where: {
         id: id,
       },
       data: {
-        userId: parseInt(userId),
-        amount: parseFloat(amount),
-        prev_balance: parseFloat(prev_balance),
-        post_balance: parseFloat(post_balance),
-        trxId: trxId,
-        status: status,
+        prev_balance: balance,
+        post_balance: newBalace,
+        status: "1",
         updatedAt: new Date(),
       },
     });
-    return NextResponse.json(updatedWithdrawal);
+
+
+    const updatedUser = await prisma.User.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        balance: newBalace,
+        updatedAt: new Date(),
+      },
+    });
+
+
+    return NextResponse.json({
+      status: 200,
+      message : "Successfully Withdrawl"
+    });
   } catch (error) {
     console.log("Error updating Withdrawal:", error);
     return NextResponse.json(

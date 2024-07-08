@@ -19,13 +19,17 @@
     "@prisma/studio": "^0.502.0",
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
+    "chart.js": "^4.4.3",
+    "date-fns": "^3.6.0",
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "next": "14.2.4",
     "next-auth": "^4.24.7",
     "nodemailer": "^6.9.14",
     "react": "^18",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
+    "react-icons": "^5.2.1",
     "react-modal": "^3.16.1"
   },
   "devDependencies": {

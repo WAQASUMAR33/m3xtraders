@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { format } from 'date-fns';
-
 const FilterableTable = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
@@ -11,13 +10,13 @@ const FilterableTable = () => {
   const [loading, setLoading] = useState(null);
 
   useEffect(() => {
-    fetch('/api/withdraw')
+    fetch('/api/deposit')
       .then((response) => response.json())
       .then((data) => {
         setData(data);
         setFilteredData(data);
       })
-      .catch((error) => console.error('Error fetching withdraws:', error));
+      .catch((error) => console.error('Error fetching users:', error));
   }, []);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const FilterableTable = () => {
   const updateUserStatus = async (id, action) => {
     setLoading(id); // Set loading state to the user ID
     try {
-      const response = await fetch(`/api/withdraw/${id}`, {
+      const response = await fetch(`/api/deposit/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +44,7 @@ const FilterableTable = () => {
         const updatedUser = await response.json();
         setFilteredData((prevData) =>
           prevData.map((user) =>
-            user.id === id ? { ...user, status: updatedUser.status } : user
+            user.id === id ? { ...user, status: 1 } : user
           )
         );
       } else {
@@ -62,7 +61,7 @@ const FilterableTable = () => {
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="bg-white shadow rounded-lg p-4 relative">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-800">Withdraw Requests</h2>
+          <h2 className="text-xl font-semibold text-gray-800">Package Requests</h2>
           <button 
             className="text-gray-600 hover:text-gray-900 focus:outline-none" 
             onClick={() => setIsSearchVisible(!isSearchVisible)}
@@ -88,27 +87,27 @@ const FilterableTable = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Package ID</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prev Bal</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Post Bal</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trnx ID</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transaction ID</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image URL</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Updated At</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredData.map((item, index) => (
-                <tr key={item.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                <tr key={item.userId} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.id}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.email}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.packageId}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.amount}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.prev_balance}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.post_balance}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.trxId}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.status}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{ format(item.updatedAt, 'yyyy-MM-dd HH:mm')}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.imageurl}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{format(item.updatedAt, 'yyyy-MM-dd HH:mm')}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium relative">
                     <div className="relative inline-block text-left">
                       <button

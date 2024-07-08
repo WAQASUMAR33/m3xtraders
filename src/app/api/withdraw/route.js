@@ -52,7 +52,7 @@ export async function POST(request) {
 
 export async function GET() {
   try {
-    const withdrawals = await prisma.withdrawal.findMany();
+    const withdrawals = await prisma.$queryRaw`SELECT Withdrawal.*, User.balance,User.name,User.email from Withdrawal inner join User on User.id = Withdrawal.userId`;
     return NextResponse.json(withdrawals);
   } catch (error) {
     console.log("Error fetching Withdrawals:", error);

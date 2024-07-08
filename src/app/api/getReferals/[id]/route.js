@@ -5,7 +5,7 @@ import { NextResponse  } from 'next/server';
 export async function GET(request, { params }) {
     const { id } = params;
     try {
-      const referrals = await prisma.$queryRaw`SELECT * FROM ReferralBenefit WHERE touser = ${id}`;
+      const referrals = await prisma.$queryRaw`SELECT * FROM ReferralBenefit WHERE userId = ${id}`;
       return NextResponse.json(referrals);
     } catch (error) {
       console.log("Error fetching Referrals:", error);

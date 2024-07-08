@@ -6,7 +6,7 @@ export async function GET(request, { params }) {
     const { id } = params;
     const level = "level 1";
     try {
-      const referrals = await prisma.$queryRaw`SELECT ReferralBenefit.*,User.name,User.email FROM ReferralBenefit inner join User on User.id = ReferralBenefit.userId   WHERE ReferralBenefit.touser = ${id} and ReferralBenefit.level = ${level} `;
+      const referrals = await prisma.$queryRaw`SELECT ReferralBenefit.*,User.name,User.email FROM ReferralBenefit inner join User on User.id = ReferralBenefit.userId   WHERE ReferralBenefit.userId = ${id} and ReferralBenefit.level = ${level} `;
 
       return NextResponse.json(referrals);
     } catch (error) {

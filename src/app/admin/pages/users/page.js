@@ -3,8 +3,11 @@
 'use client'
 import { useEffect, useState } from 'react';
 import FilterableTable from "./viewtable";
+import useAuth from "../useAuth";
 
 export default function Home() {
+
+  useAuth();
   const [data, setData] = useState([]);
 
   useEffect(() => {

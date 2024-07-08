@@ -8,7 +8,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/transactions'); // Replace with your actual API endpoint
+        const response = await fetch('/api/withdraw'); // Replace with your actual API endpoint
         const result = await response.json();
         setData(result);
       } catch (error) {

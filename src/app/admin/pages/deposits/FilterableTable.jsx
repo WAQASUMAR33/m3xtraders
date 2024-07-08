@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { format } from 'date-fns';
+
 
 const FilterableTable = ({ data }) => {
   const [filter, setFilter] = useState('');
@@ -49,7 +51,6 @@ const FilterableTable = ({ data }) => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transaction ID</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Updated At</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
@@ -63,8 +64,7 @@ const FilterableTable = ({ data }) => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.amount}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.trxId}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.status}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(item.createdAt).toLocaleString()}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(item.updatedAt).toLocaleString()}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{format(item.updatedAt, 'yyyy-MM-dd HH:mm')}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button className="text-indigo-600 hover:text-indigo-900 transition duration-150 ease-in-out">Edit</button>
                   </td>

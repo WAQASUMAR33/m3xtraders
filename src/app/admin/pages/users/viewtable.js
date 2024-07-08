@@ -1,12 +1,23 @@
 import { useState, useEffect } from 'react';
 import { MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
-const FilterableTable = ({ data }) => {
+const FilterableTable = () => {
+  const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
-  const [filteredData, setFilteredData] = useState(data);
+  const [filteredData, setFilteredData] = useState([]);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [dropdownVisible, setDropdownVisible] = useState(null);
   const [loading, setLoading] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/users')
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+        setFilteredData(data);
+      })
+      .catch((error) => console.error('Error fetching users:', error));
+  }, []);
 
   useEffect(() => {
     setFilteredData(
@@ -21,12 +32,12 @@ const FilterableTable = ({ data }) => {
   const updateUserStatus = async (id, action) => {
     setLoading(id); // Set loading state to the user ID
     try {
-      const response = await fetch('/api/users/status', {
+      const response = await fetch(`/api/userstatus/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id, action }),
+        body: JSON.stringify({ action }),
       });
 
       if (response.ok) {
@@ -111,14 +122,14 @@ const FilterableTable = ({ data }) => {
                               onClick={() => updateUserStatus(item.id, 'activate')}
                               disabled={loading === item.id}
                             >
-                              {loading === item.id ? 'Loading...' : 'Authorize'}
+                              {loading === item.id ? 'Loading...' : 'Activate'}
                             </button>
                             <button
                               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                               onClick={() => updateUserStatus(item.id, 'deactivate')}
                               disabled={loading === item.id}
                             >
-                              {loading === item.id ? 'Loading...' : 'Unauthorize'}
+                              {loading === item.id ? 'Loading...' : 'Dactivate'}
                             </button>
                           </div>
                         </div>
