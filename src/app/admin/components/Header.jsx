@@ -31,7 +31,7 @@ const Header = () => {
         </div> */}
         <div className="flex items-center">
           <Image
-            src="/ali.png"
+            src="/m3x_logo.png"
             alt="Profile Picture"
             width={40}
             height={40}

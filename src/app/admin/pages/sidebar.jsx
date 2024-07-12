@@ -18,6 +18,7 @@ export default function Sidebar() {
     users: false,
     withdraw: false,
     packages: false,
+    bankaccounts:false,
     settings: false,
     admin: false,
   });
@@ -73,11 +74,14 @@ export default function Sidebar() {
               </a>
             </Link>
           </li>
+
+
+
+
           <li>
             <button
               className="flex items-center w-full p-2 hover:bg-blue-700 rounded focus:outline-none"
-              onClick={() => toggleDropdown('users')}
-            >
+              onClick={() => toggleDropdown('users')}>
               <UserGroupIcon className="h-5 w-5" />
               <span className="ml-2">Users</span>
               <ChevronDownIcon className="h-5 w-5 ml-auto" />
@@ -91,14 +95,41 @@ export default function Sidebar() {
                     </a>
                   </Link>
                 </li>
-              </ul>
-            )}
+              </ul> )}
           </li>
+
+
+
+          
+
           <li>
             <button
               className="flex items-center w-full p-2 hover:bg-blue-700 rounded focus:outline-none"
-              onClick={() => toggleDropdown('withdraw')}
-            >
+              onClick={() => toggleDropdown('bankaccounts')}>
+              <UserGroupIcon className="h-5 w-5" />
+              <span className="ml-2">Bank Accounts</span>
+              <ChevronDownIcon className="h-5 w-5 ml-auto" />
+            </button>
+            {isDropdownOpen.bankaccounts && (
+              <ul className="ml-8 mt-2 space-y-2">
+                <li>
+                  <Link href="/admin/pages/bankaccounts" legacyBehavior>
+                    <a className="flex items-center p-2 hover:bg-blue-700 rounded">
+                      <span className="ml-2">Accounts's List</span>
+                    </a>
+                  </Link>
+                </li>
+              </ul> )}
+          </li>
+
+
+
+
+
+          <li>
+            <button
+              className="flex items-center w-full p-2 hover:bg-blue-700 rounded focus:outline-none"
+              onClick={() => toggleDropdown('withdraw')}>
               <PuzzlePieceIcon className="h-5 w-5" />
               <span className="ml-2">Withdraw Request</span>
               <ChevronDownIcon className="h-5 w-5 ml-auto" />
@@ -112,14 +143,14 @@ export default function Sidebar() {
                     </a>
                   </Link>
                 </li>
-              </ul>
-            )}
+              </ul> )}
           </li>
+
+
           <li>
             <button
               className="flex items-center w-full p-2 hover:bg-blue-700 rounded focus:outline-none"
-              onClick={() => toggleDropdown('packages')}
-            >
+              onClick={() => toggleDropdown('packages')} >
               <TableCellsIcon className="h-5 w-5" />
               <span className="ml-2">Packages</span>
               <ChevronDownIcon className="h-5 w-5 ml-auto" />
@@ -133,14 +164,15 @@ export default function Sidebar() {
                     </a>
                   </Link>
                 </li>
-              </ul>
-            )}
+              </ul>  )}
           </li>
+
+
+
           <li>
             <button
               className="flex items-center w-full p-2 hover:bg-blue-700 rounded focus:outline-none"
-              onClick={() => toggleDropdown('settings')}
-            >
+              onClick={() => toggleDropdown('settings')} >
               <CogIcon className="h-5 w-5" />
               <span className="ml-2">Settings</span>
               <ChevronDownIcon className="h-5 w-5 ml-auto" />
@@ -154,14 +186,17 @@ export default function Sidebar() {
                     </a>
                   </Link>
                 </li>
-              </ul>
-            )}
+              </ul>)}
           </li>
+
+
+
+
+
           <li>
             <button
               className="flex items-center w-full p-2 hover:bg-blue-700 rounded focus:outline-none"
-              onClick={() => toggleDropdown('admin')}
-            >
+              onClick={() => toggleDropdown('admin')}>
               <ShieldCheckIcon className="h-5 w-5" />
               <span className="ml-2">Admin Account</span>
               <ChevronDownIcon className="h-5 w-5 ml-auto" />

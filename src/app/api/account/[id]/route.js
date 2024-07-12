@@ -34,11 +34,14 @@ export async function PUT(request, { params }) {
       data: {
         bankTitle: bankTitle,
         accountNo: accountNo,
-        acountTitle: accountTitle,
+        accountTitle: accountTitle,
         updatedAt: new Date(),
       },
     });
-    return NextResponse.json(updatedAccount);
+    return NextResponse.json({
+       status: 200,
+       message: "Account has been updated"
+    });
   } catch (error) {
     console.log("Error updating Account:", error);
     return NextResponse.json(

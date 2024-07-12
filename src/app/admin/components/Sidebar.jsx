@@ -18,6 +18,7 @@ export default function Sidebar() {
     users: false,
     prequests : false,
     withdraw: false,
+    bankaccounts: false,
     packages: false,
     settings: false,
     admin: false,
@@ -56,7 +57,7 @@ export default function Sidebar() {
         <img
           width={50}
           height={50}
-          src="/ali.png"
+          src="/m3x_logo.png"
           alt="Profile"
           className="rounded-full mx-auto mb-2"
         />
@@ -97,6 +98,10 @@ export default function Sidebar() {
           </li>
 
 
+
+          
+
+
           <li>
             <button
               className="flex items-center w-full p-2 hover:bg-blue-700 rounded focus:outline-none"
@@ -118,6 +123,29 @@ export default function Sidebar() {
               </ul>
             )}
           </li>
+
+
+
+          <li>
+            <button
+              className="flex items-center w-full p-2 hover:bg-blue-700 rounded focus:outline-none"
+              onClick={() => toggleDropdown('bankaccounts')}>
+              <UserGroupIcon className="h-5 w-5" />
+              <span className="ml-2">Bank Accounts</span>
+              <ChevronDownIcon className="h-5 w-5 ml-auto" />
+            </button>
+            {isDropdownOpen.bankaccounts && (
+              <ul className="ml-8 mt-2 space-y-2">
+                <li>
+                  <Link href="/admin/pages/bankaccounts" legacyBehavior>
+                    <a className="flex items-center p-2 hover:bg-blue-700 rounded">
+                      <span className="ml-2">Accounts's List</span>
+                    </a>
+                  </Link>
+                </li>
+              </ul> )}
+          </li>
+
 
 
           <li>

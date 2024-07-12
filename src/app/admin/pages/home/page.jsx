@@ -80,15 +80,7 @@ const Dashboard = () => {
           icon={<TbMoneybag size={42}/>}
         />
       </div>
-      <div className="bg-white shadow rounded-lg p-4 mb-4">
-        {/* <Graph /> */}
-      </div>
-      <div className="grid grid-cols-3 gap-4">
-        <div className="col-span-2 bg-white shadow rounded-lg p-4">
-          {/* <UserTable users={users} /> */}
-        </div>
-        {/* <InvoiceList invoices={invoices} /> */}
-      </div>
+     
     </div>
   );
 };
