@@ -53,7 +53,7 @@ export async function POST(request) {
 
 export async function GET() {
   try {
-    const users = await prisma.$queryRaw`SELECT User.*,Deposit.amount as pamount  FROM User left join  Deposit on Deposit.userId = User.id `;
+    const users = await prisma.$queryRaw`SELECT User.*,Deposit.amount as pamount  FROM User left join  Deposit on Deposit.userId = User.id  order by User.id desc`;
     return NextResponse.json(users);
   } catch (error) {
     console.log("Error fetching users:", error);
