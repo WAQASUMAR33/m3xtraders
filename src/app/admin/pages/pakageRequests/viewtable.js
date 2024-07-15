@@ -64,8 +64,7 @@ const FilterableTable = () => {
           <h2 className="text-xl font-semibold text-gray-800">Package Requests</h2>
           <button 
             className="text-gray-600 hover:text-gray-900 focus:outline-none" 
-            onClick={() => setIsSearchVisible(!isSearchVisible)}
-          >
+            onClick={() => setIsSearchVisible(!isSearchVisible)}  >
             <MagnifyingGlassIcon className="h-6 w-6" />
           </button>
         </div>
@@ -78,8 +77,7 @@ const FilterableTable = () => {
               onChange={(e) => setFilter(e.target.value)}
               className="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-          </div>
-        )}
+          </div> )}
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -122,8 +120,7 @@ const FilterableTable = () => {
                             <button
                               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                               onClick={() => updateUserStatus(item.id, 'activate')}
-                              disabled={loading === item.id}
-                            >
+                              disabled={loading === item.id} >
                               {loading === item.id ? 'Loading...' : 'Activate'}
                             </button>
                             <button
@@ -134,8 +131,7 @@ const FilterableTable = () => {
                               {loading === item.id ? 'Loading...' : 'Deactivate'}
                             </button>
                           </div>
-                        </div>
-                      )}
+                        </div>  )}
                     </div>
                   </td>
                 </tr>
