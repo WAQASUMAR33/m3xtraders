@@ -2,17 +2,6 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(request) {
-  // Set CORS headers
-  if (request.method === 'OPTIONS') {
-    const headers = {
-      'Access-Control-Allow-Origin': '*', // Allow all origins. Change this to your frontend URL in production
-      'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    };
-    return new Response(null, { status: 204, headers });
-  }
-
-  // Process the actual request
   try {
     const { name, email, phone, address, service, pickupDate, pickupTime } = await request.json();
 
@@ -31,7 +20,7 @@ export async function POST(request) {
         name: "Swabi Laundry Website",
         address: email,
       }, // Sender address
-      to: [process.env.EMAIL_USER, email], // Replace with your target email address
+      to: [process.env.EMAIL_USER,email], // Replace with your target email address
       subject: 'New Order from Swabi Laundry',
       html: `
        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -74,33 +63,15 @@ export async function POST(request) {
           <p style="margin: 0; color: #333; font-size: 16px;">Thank you for using Swabi Laundry!</p>
         </div>
       </div>
-    `
+    `  
     };
 
     // Send email
     const info = await transporter.sendMail(mailOptions);
     console.log('Message sent: %s', info.messageId);
-
-    const headers = {
-      'Access-Control-Allow-Origin': '*', // Allow all origins. Change this to your frontend URL in production
-      'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    };
-    return new Response(JSON.stringify({ message: 'Email sent successfully', status: 200, info: info.messageId }), {
-      status: 200,
-      headers,
-    });
+    return NextResponse.json({ message: 'Email sent successfully', status: 200, info: info.messageId });
   } catch (error) {
     console.error('Failed to send email', error);
-
-    const headers = {
-      'Access-Control-Allow-Origin': '*', // Allow all origins. Change this to your frontend URL in production
-      'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    };
-    return new Response(JSON.stringify({ message: 'Failed to send email', status: 500, error: error.message }), {
-      status: 500,
-      headers,
-    });
+    return NextResponse.json({ message: 'Failed to send email', status: 500, error: error.message });
   }
 }
