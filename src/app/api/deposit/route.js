@@ -8,22 +8,39 @@ export async function POST(request) {
   const data = await request.json();
   const { userId, packageId, amount, trxId, status, imageurl } = data;
 
-  const newDeposit = await prisma.deposit.create({
-    data: {
-      userId: parseInt(userId),
-      packageId: parseInt(packageId),
-      amount: parseFloat(amount),
-      trxId: trxId,
-      status: status,
-      imageurl: "not Uploaded", // Save the GitHub file URL in the database
-      createdAt: new Date(),
-      updatedAt: new Date(),
+
+
+  const response = await fetch('https://appstore.store2u.ca/uploadImage.php', { // Replace with your actual endpoint URL
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
+    body: JSON.stringify({ image: imageurl }),
   });
-   return NextResponse.json({
-    status : 200,
-    message : "Your Request Has Submitted"
-   })
+
+  const result = await response.json();
+  if (response.ok) {
+    console.log('Image URL:', result.image_url);
+
+    const newDeposit = await prisma.deposit.create({
+      data: {
+        userId: parseInt(userId),
+        packageId: parseInt(packageId),
+        amount: parseFloat(amount),
+        trxId: trxId,
+        status: status,
+        imageurl: result.image_url, // Save the GitHub file URL in the database
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
+     return NextResponse.json({
+      status : 200,
+      message : "Your Request Has Submitted"
+     });
+  } else {
+    console.error('Error:', result.error);
+  }
  }
  catch (error) {
   console.error("Error creating Deposit:", error);
@@ -51,3 +68,4 @@ export async function GET() {
     );
   }
 }
+
