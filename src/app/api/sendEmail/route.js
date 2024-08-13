@@ -5,7 +5,7 @@ export async function POST(request) {
   // Set CORS headers
   if (request.method === 'OPTIONS') {
     const headers = {
-      'Access-Control-Allow-Origin': 'https://m3xtraders.vercel.app', // Change to your frontend URL in production
+      'Access-Control-Allow-Origin': '*', // Change to your frontend URL in production
       'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     };
